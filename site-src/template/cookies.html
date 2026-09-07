@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Cookies — Davinci Custom-Garage</title>
+    <link rel="stylesheet" href="Cookies.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+   
+</head>
+<body>
+
+    <div class="cookie-card">
+
+        <!-- ── HEADER ── -->
+        <div class="card-header">
+            <span class="cookie-icon">🍪</span>
+            <div class="header-text">
+                <h1>Gestion des Cookies</h1>
+                <p>
+                    Nous utilisons des cookies pour assurer le bon fonctionnement du
+                    <span>Davinci Custom-Garage</span>, analyser notre trafic et
+                    sécuriser vos paiements. Certains sont <span>essentiels</span>,
+                    d'autres nous aident à améliorer votre expérience de réservation.
+                    Vous pouvez accepter tout, refuser les optionnels, ou choisir
+                    précisément ce que vous autorisez.
+                </p>
+            </div>
+        </div>
+
+        <!-- ── MAIN BUTTONS ── -->
+        <div class="card-actions">
+            <button class="btn-accept" onclick="handleAccept()">✦ Accepter tout</button>
+            <button class="btn-refuse" onclick="handleRefuse()">Refuser tout</button>
+            <button class="btn-customize" id="btn-customize" onclick="togglePanel()">⚙ Personnaliser</button>
+        </div>
+
+        <!-- ── CUSTOMIZE PANEL ── -->
+        <div class="customize-panel" id="customize-panel">
+            <p class="panel-title">⚙ Paramètres des cookies</p>
+
+            <!-- Téchniques -->
+            <div class="cookie-row">
+                <div class="cookie-info">
+                    <p class="cookie-name">
+                        Cookies Techniques
+                        <span class="badge-required">Obligatoires</span>
+                    </p>
+                    <p class="cookie-desc">
+                        Indispensables au fonctionnement du site. Ils permettent la connexion à votre espace client,
+                        la réservation d'une place de parking et la gestion de votre session. Ils ne peuvent pas être désactivés.
+                    </p>
+                </div>
+                <div class="toggle-wrap">
+                    <label class="toggle">
+                        <input type="checkbox" checked disabled>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Audience -->
+            <div class="cookie-row">
+                <div class="cookie-info">
+                    <p class="cookie-name">Cookies de Mesure d'Audience</p>
+                    <p class="cookie-desc">
+                        Nous aident à comprendre quelles pages sont les plus visitées et comment les utilisateurs
+                        naviguent sur notre site. Ces données sont anonymes et nous servent uniquement à améliorer le service.
+                    </p>
+                </div>
+                <div class="toggle-wrap">
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-audience">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Sécurité -->
+            <div class="cookie-row">
+                <div class="cookie-info">
+                    <p class="cookie-name">Cookies de Sécurité</p>
+                    <p class="cookie-desc">
+                        Utilisés pour prévenir les fraudes lors du paiement en ligne. Ils détectent les comportements
+                        suspects et protègent vos transactions et vos données bancaires.
+                    </p>
+                </div>
+                <div class="toggle-wrap">
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-security">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <button class="btn-save" onclick="handleSave()">Enregistrer mes préférences</button>
+        </div>
+
+        <!-- ── FOOTER ── -->
+        <div class="card-footer">
+            <span class="footer-note">© 2026 Davinci Custom-Garage — Vous pouvez modifier vos préférences à tout moment.</span>
+            <a href="" class="privacy-link">Politique de Confidentialité →</a>
+        </div>
+
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast"></div>
+
+</body>
+</html>

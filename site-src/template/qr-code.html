@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Confirmation — Davinci Custom Garage</title>
+<link rel="stylesheet" href="qrData.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="qrData.js" defer></script>
+
+</head>
+<body>
+
+<!-- ─── NAVBAR ─────────────────────────────────────────── -->
+<nav id="nav">
+    <div>
+        <a href="home.html"><img src="Garage.png" alt="Davinci Garage" class="logo-garage"></a>    </div>
+    <ul class="nav-list">
+        <li><a href="home.html">Accueil</a></li>
+        <li><a href="About.html">Contact</a></li>
+    </ul>
+    <a href="Confirm.html" class="nav-back">← Retour</a>
+    <div class="nav-glow"></div>
+</nav>
+
+<!-- ─── STEPS ─────────────────────────────────────────── -->
+<div class="steps-bar">
+    <div class="step-dot done">
+        <div class="dot">✓</div>
+        <span class="label">Sélection</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step-dot done">
+        <div class="dot">✓</div>
+        <span class="label">Paiement</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step-dot active">
+        <div class="dot">3</div>
+        <span class="label">Confirmation</span>
+    </div>
+</div>
+
+<!-- ─── PAGE HEADER ────────────────────────────────────── -->
+<header id="page-header">
+    <span class="page-tag">ÉTAPE 3 / 3 — CONFIRMATION</span>
+    <h1 class="page-title">Réservation <em>Validée</em></h1>
+    <p class="page-sub">Votre accès est prêt — Conservez ce QR Code pour entrer</p>
+</header>
+
+<!-- ─── MAIN ───────────────────────────────────────────── -->
+<div id="main-wrap">
+
+    <!-- RESERVATION DETAILS -->
+    <div class="reservation-card">
+        <div class="inner-glow"></div>
+        <span class="res-label">DÉTAILS DE LA RÉSERVATION</span>
+
+        <!-- Place badge -->
+        <div class="place-badge">
+            <div class="place-number-big" id="rc-place">A-01</div>
+            <div class="place-info-col">
+                <span class="place-zone-tag" id="rc-zone">ZONE A — NIVEAU 0</span>
+                <span class="place-type-tag" id="rc-type">Standard · Couvert · PMR</span>
+                <span class="status-pill"><span class="status-dot"></span>Actif</span>
+            </div>
+        </div>
+
+        <!-- Details -->
+        <div class="details-grid">
+
+            <div class="detail-item full">
+                <div class="ref-tag">
+                    <div>
+                        <div class="ref-label">RÉFÉRENCE</div>
+                        <span id="rc-ref">DCG-2026-XXXX</span>
+                    </div>
+                    <span style="font-size:0.7rem;color:var(--muted);font-family:'Pirata One',cursive;letter-spacing:0.1em;">À CONSERVER</span>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-key">Titulaire</span>
+                <span class="detail-val" id="rc-holder">—</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-key">Email</span>
+                <span class="detail-val" id="rc-email">—</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-key">Début abonnement</span>
+                <span class="detail-val green" id="rc-start">—</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-key">Prochaine échéance</span>
+                <span class="detail-val" id="rc-next">—</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-key">Carte débitée</span>
+                <span class="detail-val" id="rc-card">•••• 0000</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-key">Montant mensuel</span>
+                <span class="detail-val red">89,00 €</span>
+            </div>
+            <div class="detail-item full">
+                <span class="detail-key">Adresse du garage</span>
+                <span class="detail-val">12 Rue de la Mécanique, 75011 Paris</span>
+            </div>
+            <div class="detail-item full">
+                <span class="detail-key">Accès & horaires</span>
+                <span class="detail-val">Lun–Dim · 06h00 – 23h00 · Accès 24/7 sur demande</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- QR CODE -->
+    <div class="qr-side">
+        <div class="qr-card">
+            <span class="qr-label">VOTRE QR CODE D'ACCÈS</span>
+
+            <div class="qr-wrapper" id="qrWrapper">
+                <div class="qr-corner-tr"></div>
+                <div class="qr-corner-bl"></div>
+                <div id="qrcode"></div>
+            </div>
+
+            <p class="qr-id" id="qr-ref-label">DCG-2026-XXXX</p>
+            <p class="qr-hint">Présentez ce QR Code à l'entrée<br>du garage pour accéder à votre place.</p>
+
+            <button class="btn-download" onclick="downloadQR()">
+                ⬇ Télécharger le QR Code
+            </button>
+        </div>
+    </div>
+
+    <!-- THANK YOU -->
+    <div class="thanks-card">
+        <div class="thanks-glow"></div>
+        <span class="thanks-icon">🏁</span>
+        <h2 class="thanks-title">Merci de nous faire <em>Confiance</em></h2>
+        <div class="thanks-divider"></div>
+        <p class="thanks-body">
+            Votre place <strong id="tc-place">A-01</strong> au sein du <strong>Davinci Custom Garage</strong>
+            est désormais réservée et sécurisée à votre nom.<br>
+            Un e-mail de confirmation accompagné de votre QR Code a été envoyé
+            à <strong id="tc-email">votre adresse e-mail</strong>.<br><br>
+            Notre équipe reste disponible pour toute question ou assistance.
+            Nous sommes impatients de vous accueillir.
+        </p>
+        <span class="thanks-sign">— L'équipe Davinci Custom Garage</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="action-row">
+        <button class="btn-primary-action" onclick="window.print()">🖨 Imprimer la confirmation</button>
+        <button class="btn-secondary-action">📧 Renvoyer l'e-mail</button>
+        <a href="home.html"><button class="btn-secondary-action" onclick="location.href='#'">← Retour à l'accueil</button></a>
+    </div>
+
+</div>
+
+</body>
+</html>
