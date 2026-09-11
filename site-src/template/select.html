@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sélection de Place — Davinci Custom Garage</title>
+<link rel="stylesheet" href="select.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet"/>
+<script src="select.js" defer></script>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─────────────────────────────────────────── -->
+<nav id="nav">
+    <div class="nav-img">
+        <a href="home.html"><img src="Garage.png" alt="Davinci Garage" class="logo-garage"></a>    
+    </div>
+
+    <ul class="nav-list">
+        <li><a href="home.html">Accueil</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <a href="home.html" class="nav-back">
+        <span>←</span>
+        <span>Retour</span>
+    </a>
+
+    <div class="nav-glow"></div>
+</nav>
+
+<!-- ─── PAGE HEADER ────────────────────────────────────── -->
+<header id="page-header">
+    <span class="page-tag">ÉTAPE 1 / 3 — SÉLECTION</span>
+    <h1 class="page-title">Choisissez votre <em>Place</em></h1>
+    <p class="page-sub">Sélectionnez une place disponible pour continuer votre réservation</p>
+</header>
+
+<!-- ─── CONTROLS ──────────────────────────────────────── -->
+<div id="controls">
+    <div class="legend">
+        <span class="legend-item"><span class="legend-dot available"></span>Disponible</span>
+        <span class="legend-item"><span class="legend-dot reserved"></span>Réservée</span>
+        <span class="legend-item"><span class="legend-dot occupied"></span>Occupée</span>
+        <span class="legend-item"><span class="legend-dot disabled"></span>Indisponible</span>
+    </div>
+    <div class="filter-group">
+        <button class="filter-btn active" data-filter="all"       onclick="filterSpots('all', this)">Toutes</button>
+        <button class="filter-btn"        data-filter="available" onclick="filterSpots('available', this)">Disponibles</button>
+        <button class="filter-btn"        data-filter="reserved"  onclick="filterSpots('reserved', this)">Réservées</button>
+        <button class="filter-btn"        data-filter="occupied"  onclick="filterSpots('occupied', this)">Occupées</button>
+    </div>
+</div>
+
+<!-- ─── SPOT GRID ──────────────────────────────────────── -->
+<div id="grid-wrap">
+
+    <!-- ZONE A — Niveau 0 (active, 4 spots, all states) -->
+    <div class="zone-section" data-zone="A">
+        <div class="zone-label">
+            <h2>⬛ ZONE A — NIVEAU 0</h2>
+            <div class="zone-line"></div>
+            <span class="zone-count" id="count-A">4 PLACES</span>
+        </div>
+        <div class="spots-grid" id="zone-A"></div>
+    </div>
+
+    <!-- ZONE B — Indisponible -->
+    <div class="zone-section" data-zone="B">
+        <div class="zone-label">
+            <h2>⬛ ZONE B — NIVEAU -1</h2>
+            <div class="zone-line"></div>
+            <span class="zone-count" id="count-B">6 PLACES</span>
+        </div>
+        <div class="zone-disabled-notice">
+            <span>🔒</span>
+            <span>Cette zone n'est pas encore ouverte à la réservation</span>
+        </div>
+        <div class="spots-grid" id="zone-B"></div>
+    </div>
+
+    <!-- ZONE C — Indisponible -->
+    <div class="zone-section" data-zone="C">
+        <div class="zone-label">
+            <h2>⬛ ZONE C — EXTÉRIEUR</h2>
+            <div class="zone-line"></div>
+            <span class="zone-count" id="count-C">6 PLACES</span>
+        </div>
+        <div class="zone-disabled-notice">
+            <span>🔒</span>
+            <span>Cette zone n'est pas encore ouverte à la réservation</span>
+        </div>
+        <div class="spots-grid" id="zone-C"></div>
+    </div>
+
+    <div class="empty-state" id="empty-state">Aucune place correspondante trouvée.</div>
+</div>
+
+<!-- ─── MODAL ──────────────────────────────────────────── -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" role="dialog" aria-modal="true">
+        <button class="modal-close" onclick="closeModalDirect()" aria-label="Fermer">✕</button>
+
+        <span class="modal-tag">CONFIRMER LA SÉLECTION</span>
+        <h2 class="modal-title" id="modal-title">Place A-01</h2>
+        <p class="modal-sub"  id="modal-sub">Zone A — Niveau 0</p>
+
+        <div class="modal-details">
+            <div class="modal-detail-item">
+                <span>Numéro</span>
+                <span id="modal-num">A-01</span>
+            </div>
+            <div class="modal-detail-item">
+                <span>Zone</span>
+                <span id="modal-zone">Zone A</span>
+            </div>
+            <div class="modal-detail-item">
+                <span>Localisation</span>
+                <span id="modal-loc">Niveau 0</span>
+            </div>
+            <div class="modal-detail-item">
+                <span>Type</span>
+                <span id="modal-type">Standard</span>
+            </div>
+        </div>
+
+        <div class="modal-price">
+            <span class="label">Tarif / Mois</span>
+            <span class="amount" id="modal-price">—</span>
+        </div>
+
+        <a href=Confirm.html><button class="btn-confirm" onclick="confirmSelection()">
+            Confirmer &amp; Continuer →
+        </button></a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Paiement — Davinci Custom Garage</title>
+<link rel="stylesheet" href="confirm.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<script src="confirm.js" defer></script>
+</head>
+<body>
+
+<!-- ─── LOADING ────────────────────────────────────────── -->
+<div id="loading-screen">
+    <div class="loader-ring"></div>
+    <span class="loader-text">TRAITEMENT EN COURS</span>
+</div>
+
+<!-- ─── SUCCESS ────────────────────────────────────────── -->
+<div id="success-screen">
+    <div class="success-ring">✓</div>
+    <h1 class="success-title">Paiement <em>Confirmé</em></h1>
+    <p class="success-sub">Votre place a été réservée avec succès. Un e-mail de confirmation vous a été envoyé à <strong id="s-email-inline" style="color:var(--text)">—</strong></p>
+    <span class="success-ref" id="success-ref">REF : DCG-2026-0000</span>
+    <div class="success-details">
+        <div class="success-row"><span class="sk">Place</span>        <span class="sv" id="s-place">A-01</span></div>
+        <div class="success-row"><span class="sk">Zone</span>         <span class="sv" id="s-zone">Zone A — Niveau 0</span></div>
+        <div class="success-row"><span class="sk">Titulaire</span>    <span class="sv" id="s-holder">—</span></div>
+        <div class="success-row"><span class="sk">Email</span>        <span class="sv" id="s-email">—</span></div>
+        <div class="success-row"><span class="sk">Carte</span>        <span class="sv" id="s-card">•••• ••••</span></div>
+        <div class="success-row"><span class="sk">Début abonnement</span><span class="sv" id="s-date">—</span></div>
+        <div class="success-row" style="margin-top:8px;padding-top:10px;border-top:1px solid rgba(221,21,21,0.2);">
+            <span class="sk" style="color:var(--text);font-size:1rem;">Montant prélevé</span>
+            <span class="sv" style="color:var(--red);font-size:1.3rem;text-shadow:0 0 12px var(--red-glow-sm)">89,00 €</span>
+        </div>
+    </div>
+    <button class="btn-success-next" onclick="location.reload()">← Retour à la sélection</button>
+</div>
+
+<!-- ─── NAVBAR ─────────────────────────────────────────── -->
+<nav id="nav">
+    <div class="nav-img">
+        <a href="home.html"><img src="Garage.png" alt="Davinci Garage" class="logo-garage"></a>    </div>
+    <ul class="nav-list">
+        <li><a href="home.html">Accueil</a></li>
+        <li><a href="About.html">Contact</a></li>
+    </ul>
+    <a href="#" class="nav-back">← Retour</a>
+    <div class="nav-glow"></div>
+</nav>
+
+<!-- ─── PAGE HEADER ────────────────────────────────────── -->
+<header id="page-header">
+    <span class="page-tag">ÉTAPE 2 / 3 — PAIEMENT</span>
+    <h1 class="page-title">Sécurisez votre <em>Place</em></h1>
+    <p class="page-sub">Paiement sécurisé SSL — Aucune donnée conservée</p>
+</header>
+
+<!-- ─── STEPS ─────────────────────────────────────────── -->
+<div class="steps-bar">
+    <div class="step-dot done">
+        <div class="dot">✓</div>
+        <span class="label">Sélection</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step-dot active">
+        <div class="dot">2</div>
+        <span class="label">Paiement</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-dot">
+        <div class="dot">3</div>
+        <span class="label">Confirmation</span>
+    </div>
+</div>
+
+<!-- ─── MAIN ───────────────────────────────────────────── -->
+<div id="payment-wrap">
+
+    <!-- LEFT — card + summary -->
+    <div class="card-side">
+
+        <!-- CARD VISUAL -->
+        <div class="card-scene">
+            <div class="card-3d" id="card3d">
+                <!-- FRONT -->
+                <div class="card-face card-front">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div class="card-chip"></div>
+                        <div class="card-logo-row">
+                            <div class="card-type-logo" id="cardLogo">
+                                <div class="circle"></div>
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-number-display" id="cardNumDisplay">
+                        •••• &nbsp; •••• &nbsp; •••• &nbsp; ••••
+                    </div>
+                    <div class="card-bottom">
+                        <div>
+                            <span class="card-field-label">Titulaire</span>
+                            <div class="card-field-value" id="cardNameDisplay">VOTRE NOM</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <span class="card-field-label">Expire</span>
+                            <div class="card-field-value" id="cardExpiryDisplay">MM/AA</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- BACK -->
+                <div class="card-face card-back">
+                    <div class="card-back-stripe"></div>
+                    <div class="card-back-cvv-row">
+                        <div class="cvv-tape">
+                            <div class="cvv-value" id="cardCvvDisplay">•••</div>
+                        </div>
+                        <span class="cvv-label">CVV</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="order-summary">
+            <h3>RÉCAPITULATIF</h3>
+            <div class="order-row">
+                <span class="okey">Place</span>
+                <span class="oval">A-01 — Niveau 0</span>
+            </div>
+            <div class="order-row">
+                <span class="okey">Zone</span>
+                <span class="oval">Zone A — Couvert PMR</span>
+            </div>
+            <div class="order-row">
+                <span class="okey">Durée</span>
+                <span class="oval">Mensuel</span>
+            </div>
+            <div class="order-row">
+                <span class="okey">Sous-total</span>
+                <span class="oval">89,00 €</span>
+            </div>
+            <div class="order-row">
+                <span class="okey">TVA (20%)</span>
+                <span class="oval">0,00 € <span style="font-size:0.7rem;color:var(--muted)">(incluse)</span></span>
+            </div>
+            <div class="order-row total" style="margin-top:8px;padding-top:12px;border-top:1px solid rgba(221,21,21,0.2);">
+                <span class="okey">Total</span>
+                <span class="oval">89,00 €</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT — form -->
+    <div class="form-side">
+        <div class="form-card">
+
+            <div class="form-section-title">INFORMATIONS CARTE</div>
+
+            <div class="form-grid">
+
+                <!-- Card number -->
+                <div class="form-group full">
+                    <label>Numéro de carte</label>
+                    <div class="input-wrap">
+                        <span class="icon">💳</span>
+                        <input
+                            type="text"
+                            id="cardNumber"
+                            class="card-number-input"
+                            placeholder="0000  0000  0000  0000"
+                            maxlength="19"
+                            autocomplete="cc-number"
+                            inputmode="numeric"
+                            oninput="handleCardNumber(this)"
+                            onfocus="flipCard(false)"
+                        />
+                        <div class="card-type-badge" id="cardTypeBadge">
+                            <div class="mini-circle"></div>
+                            <div class="mini-circle"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Name -->
+                <div class="form-group full">
+                    <label>Nom du titulaire</label>
+                    <div class="input-wrap">
+                        <span class="icon">👤</span>
+                        <input
+                            type="text"
+                            id="cardName"
+                            class="no-icon"
+                            style="padding-left:40px;font-family:'Pirata One',cursive;"
+                            placeholder="JEAN DUPONT"
+                            maxlength="26"
+                            autocomplete="cc-name"
+                            oninput="handleName(this)"
+                            onfocus="flipCard(false)"
+                        />
+                    </div>
+                </div>
+
+                <!-- Expiry -->
+                <div class="form-group">
+                    <label>Date d'expiration</label>
+                    <div class="input-wrap">
+                        <span class="icon">📅</span>
+                        <input
+                            type="text"
+                            id="cardExpiry"
+                            placeholder="MM/AA"
+                            maxlength="5"
+                            autocomplete="cc-exp"
+                            inputmode="numeric"
+                            oninput="handleExpiry(this)"
+                            onfocus="flipCard(false)"
+                        />
+                        <span class="input-valid" id="expiryValid">✓</span>
+                    </div>
+                </div>
+
+                <!-- CVV -->
+                <div class="form-group">
+                    <label>Code CVV</label>
+                    <div class="input-wrap">
+                        <span class="icon">🔐</span>
+                        <input
+                            type="password"
+                            id="cardCvv"
+                            placeholder="•••"
+                            maxlength="4"
+                            autocomplete="cc-csc"
+                            inputmode="numeric"
+                            oninput="handleCvv(this)"
+                            onfocus="flipCard(true)"
+                            onblur="flipCard(false)"
+                        />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="form-section-title">TITULAIRE DU COMPTE</div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Prénom</label>
+                    <div class="input-wrap">
+                        <span class="icon">✦</span>
+                        <input type="text" placeholder="Jean" autocomplete="given-name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nom</label>
+                    <div class="input-wrap">
+                        <span class="icon">✦</span>
+                        <input type="text" placeholder="Dupont" autocomplete="family-name"/>
+                    </div>
+                </div>
+                <div class="form-group full">
+                    <label>Email</label>
+                    <div class="input-wrap">
+                        <span class="icon">✉</span>
+                        <input type="email" placeholder="jean@exemple.fr" autocomplete="email"/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAY BUTTON -->
+            <button class="btn-pay" onclick="processPayment()">
+                <span class="lock-icon">🔒</span>
+                Payer 89,00 € — Confirmer
+            </button>
+
+            <!-- SECURITY -->
+            <div class="security-row">
+                <span class="security-badge">🔒 SSL 256-bit</span>
+                <span class="security-badge">🛡 3D Secure</span>
+                <span class="security-badge">✓ PCI DSS</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

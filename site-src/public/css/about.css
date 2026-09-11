@@ -1,0 +1,592 @@
+     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --red:         #dd1515;
+            --red-dark:    #8b0e0e;
+            --red-glow:    rgba(221, 21, 21, 0.55);
+            --red-glow-sm: rgba(221, 21, 21, 0.22);
+            --black:       #050505;
+            --surface:     #111111;
+            --surface2:    #0d0d0d;
+            --border:      rgba(200, 20, 20, 0.38);
+            --text:        #f0e8e8;
+            --muted:       #9a8080;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "Pirata One", cursive;
+            background: var(--black);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(80,6,6,0.18) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow:
+                inset 0 0 180px rgba(221, 21, 21, 0.1),
+                inset 0 0 50px rgba(221, 21, 21, 0.05);
+        }
+
+        a { color: var(--red); text-decoration: none; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--red-dark); border-radius: 3px; }
+
+        /* ─── NAVBAR ─────────────────────────────────────────── */
+        #nav {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            height: 90px;
+            background: rgba(5,5,5,0.97);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        #nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0.5;
+        }
+
+        .logo-garage {
+            height: 70px; width: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 12px var(--red-glow));
+        }
+
+        .nav-list { display: flex; gap: 36px; list-style: none; }
+        .nav-list li a {
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            color: var(--text);
+            position: relative;
+            transition: color 0.2s;
+        }
+        .nav-list li a::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -3px;
+            width: 0%; height: 1px;
+            background: var(--red);
+            transition: width 0.3s ease;
+        }
+        .nav-list li a:hover { color: var(--red); }
+        .nav-list li a:hover::after { width: 100%; }
+        .nav-list li a.active { color: var(--red); }
+        .nav-list li a.active::after { width: 100%; }
+
+        /* ─── COMMONS ────────────────────────────────────────── */
+        .section-label {
+            font-family: "Cinzel", serif;
+            font-size: 0.62rem;
+            letter-spacing: 0.42em;
+            color: var(--red);
+            text-transform: uppercase;
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 0 12px var(--red-glow-sm);
+        }
+
+        .section-title {
+            font-family: "Pirata One", cursive;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 14px;
+            text-shadow: 0 0 30px rgba(221,21,21,0.2);
+        }
+
+        .section-sub {
+            font-size: 0.95rem;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.85;
+            max-width: 600px;
+            margin: 0 auto 50px;
+            font-family: "IM Fell English", serif;
+            font-style: italic;
+        }
+
+        .red-line {
+            width: 50px; height: 1px;
+            background: var(--red);
+            box-shadow: 0 0 12px var(--red-glow);
+            margin: 0 auto 52px;
+        }
+
+        /* ─── HERO ───────────────────────────────────────────── */
+        #hero {
+            position: relative;
+            z-index: 1;
+            padding: 110px 40px 90px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(100,8,8,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            font-family: "Cinzel", serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.4em;
+            color: var(--red);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+            text-shadow: 0 0 14px var(--red-glow-sm);
+            animation: fadeUp 0.8s ease both;
+        }
+
+        .hero-title {
+            font-family: "Pirata One", cursive;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 0.9;
+            color: var(--text);
+            text-shadow: 0 0 60px rgba(221,21,21,0.25), 0 4px 20px rgba(0,0,0,0.9);
+            margin-bottom: 10px;
+            animation: fadeUp 0.9s ease 0.1s both;
+        }
+        .hero-title em {
+            font-style: normal;
+            color: var(--red);
+            text-shadow: 0 0 40px rgba(221,21,21,0.6);
+        }
+
+        .hero-sub-line {
+            font-family: "Cinzel", serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.45em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            animation: fadeUp 0.9s ease 0.2s both;
+        }
+
+        .hero-desc {
+            font-family: "IM Fell English", serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--muted);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.9;
+            animation: fadeUp 0.9s ease 0.3s both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── VISION ─────────────────────────────────────────── */
+        #vision {
+            position: relative;
+            z-index: 1;
+            padding: 90px 40px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .vision-text h2 {
+            font-family: "Pirata One", cursive;
+            font-size: 2.2rem;
+            color: var(--red);
+            text-shadow: 0 0 20px var(--red-glow-sm);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .vision-text p {
+            font-family: "IM Fell English", serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--muted);
+            line-height: 1.9;
+            margin-bottom: 18px;
+        }
+
+        .vision-text p strong {
+            color: var(--text);
+            font-style: normal;
+        }
+
+        .vision-stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+        }
+
+        .stat-box {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 30px 24px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+        .stat-box:hover { background: #0f0202; }
+
+        .stat-number {
+            font-family: "Pirata One", cursive;
+            font-size: 2.5rem;
+            color: var(--red);
+            text-shadow: 0 0 16px var(--red-glow-sm);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-family: "Cinzel", serif;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* ─── TECHNOLOGY ─────────────────────────────────────── */
+        #tech {
+            position: relative;
+            z-index: 1;
+            padding: 100px 40px;
+            background: var(--black);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tech-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 42px 30px;
+            position: relative;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--red);
+            box-shadow: 0 0 10px var(--red-glow);
+            transform: scaleX(0);
+            transition: transform 0.35s ease;
+        }
+        .tech-card:hover { background: #0d0000; transform: translateY(-3px); }
+        .tech-card:hover::before { transform: scaleX(1); }
+
+        .tech-icon { font-size: 2.2rem; display: block; margin-bottom: 16px; filter: drop-shadow(0 0 8px var(--red-glow-sm)); }
+
+        .tech-card h3 {
+            font-family: "Pirata One", cursive;
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .tech-card p {
+            font-family: "IM Fell English", serif;
+            font-style: italic;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        /* ─── VALUES ─────────────────────────────────────────── */
+        #values {
+            position: relative;
+            z-index: 1;
+            padding: 100px 40px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 38px 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 24px rgba(221,21,21,0.1);
+        }
+        .value-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0.4;
+        }
+
+        .value-icon { font-size: 2rem; display: block; margin-bottom: 14px; }
+
+        .value-card h3 {
+            font-family: "Pirata One", cursive;
+            font-size: 1.25rem;
+            color: var(--red);
+            text-shadow: 0 0 12px var(--red-glow-sm);
+            margin-bottom: 10px;
+        }
+
+        .value-card p {
+            font-family: "IM Fell English", serif;
+            font-style: italic;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        /* ─── TEAM ───────────────────────────────────────────── */
+        #team {
+            position: relative;
+            z-index: 1;
+            padding: 100px 40px;
+            background: var(--black);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 20px rgba(221,21,21,0.1);
+        }
+
+        /* Photo placeholder */
+        .team-photo {
+            width: 100%;
+            height: 200px;
+            background: #0a0a0a;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.3) contrast(1.1);
+            transition: filter 0.4s ease, transform 0.4s ease;
+        }
+        .team-card:hover .team-photo img {
+            filter: grayscale(0) contrast(1.15);
+            transform: scale(1.04);
+        }
+
+        .photo-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--muted);
+        }
+        .photo-placeholder span:first-child { font-size: 2.8rem; opacity: 0.4; }
+        .photo-placeholder span:last-child {
+            font-family: "Cinzel", serif;
+            font-size: 0.58rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        .team-info { padding: 24px 20px; }
+
+        .team-name {
+            font-family: "Pirata One", cursive;
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            font-family: "Cinzel", serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            color: var(--red);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .team-bio {
+            font-family: "IM Fell English", serif;
+            font-style: italic;
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        /* ─── CTA BAND ───────────────────────────────────────── */
+        #cta {
+            position: relative;
+            z-index: 1;
+            padding: 80px 40px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        #cta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0.45;
+        }
+
+        #cta h2 {
+            font-family: "Pirata One", cursive;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            color: var(--text);
+            margin-bottom: 16px;
+            text-shadow: 0 0 30px rgba(221,21,21,0.2);
+        }
+        #cta h2 em { font-style: normal; color: var(--red); }
+
+        #cta p {
+            font-family: "IM Fell English", serif;
+            font-style: italic;
+            color: var(--muted);
+            font-size: 0.97rem;
+            margin-bottom: 36px;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            padding: 15px 50px;
+            background: var(--red-dark);
+            border: 1px solid var(--red);
+            color: var(--text);
+            font-family: "Pirata One", cursive;
+            font-size: 1.05rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+        .btn-cta:hover {
+            background: var(--red);
+            box-shadow: 0 0 36px var(--red-glow);
+        }
+
+        /* ─── FOOTER ─────────────────────────────────────────── */
+        footer {
+            position: relative;
+            z-index: 1;
+            background: #0a0a0a;
+            border-top: 1px solid var(--border);
+            padding: 28px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-brand {
+            font-family: "Pirata One", cursive;
+            font-size: 1.3rem;
+            color: var(--red);
+            text-shadow: 0 0 14px var(--red-glow-sm);
+        }
+
+        footer p {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-family: "IM Fell English", serif;
+            font-style: italic;
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .vision-grid { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .team-grid   { grid-template-columns: 1fr 1fr; }
+            #nav { padding: 0 20px; }
+            .nav-list { gap: 18px; }
+            #hero { padding: 80px 24px 60px; }
+        }
+        @media (max-width: 480px) {
+            .team-grid { grid-template-columns: 1fr; }
+        }

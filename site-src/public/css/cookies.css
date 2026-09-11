@@ -1,0 +1,386 @@
+
+        /* ─── RESET & VARIABLES ─────────────────────────────── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --red:         #dd1515;
+            --red-dark:    #8b0e0e;
+            --red-glow:    rgba(221, 21, 21, 0.55);
+            --red-glow-sm: rgba(221, 21, 21, 0.22);
+            --black:       #050505;
+            --surface:     #111111;
+            --surface2:    #0d0d0d;
+            --border:      rgba(200, 20, 20, 0.4);
+            --text:        #f0e8e8;
+            --muted:       #9a8080;
+        }
+
+        body {
+            font-family: "Pirata One", cursive;
+            background: var(--black);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(80,6,6,0.22) 0%, var(--black) 68%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow:
+                inset 0 0 180px rgba(221, 21, 21, 0.1),
+                inset 0 0 50px rgba(221, 21, 21, 0.05);
+        }
+
+        /* ─── MAIN CARD ──────────────────────────────────────── */
+        .cookie-card {
+            position: relative;
+            z-index: 1;
+            width: min(780px, 96vw);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow:
+                0 0 30px rgba(221,21,21,0.15),
+                0 0 80px rgba(0,0,0,0.85);
+        }
+
+        /* top glow line */
+        .cookie-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 5%, var(--red) 50%, transparent 95%);
+            opacity: 0.65;
+            z-index: 2;
+        }
+
+        /* ─── HEADER ─────────────────────────────────────────── */
+        .card-header {
+            padding: 40px 48px 28px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .cookie-icon {
+            font-size: 2.6rem;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 10px var(--red-glow-sm));
+        }
+
+        .header-text h1 {
+            font-family: "Pirata One", cursive;
+            font-size: 1.6rem;
+            color: var(--red);
+            text-shadow: 0 0 18px var(--red-glow-sm);
+            margin-bottom: 12px;
+            letter-spacing: 0.04em;
+        }
+
+        .header-text p {
+            font-size: 0.97rem;
+            color: var(--muted);
+            line-height: 1.85;
+            letter-spacing: 0.02em;
+        }
+
+        .header-text p span {
+            color: var(--text);
+        }
+
+        /* ─── MAIN BUTTONS ───────────────────────────────────── */
+        .card-actions {
+            padding: 28px 48px;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .btn-accept {
+            flex: 1;
+            min-width: 160px;
+            padding: 14px 20px;
+            background: var(--red-dark);
+            border: 1px solid var(--red);
+            color: var(--text);
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .btn-accept:hover {
+            background: var(--red);
+            box-shadow: 0 0 28px var(--red-glow);
+        }
+
+        .btn-refuse {
+            flex: 1;
+            min-width: 160px;
+            padding: 14px 20px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: border-color 0.3s, box-shadow 0.3s, color 0.3s;
+        }
+        .btn-refuse:hover {
+            border-color: var(--red);
+            color: var(--red);
+            box-shadow: 0 0 16px var(--red-glow-sm);
+        }
+
+        .btn-customize {
+            flex: 1;
+            min-width: 160px;
+            padding: 14px 20px;
+            background: transparent;
+            border: 1px solid rgba(200,20,20,0.28);
+            color: var(--muted);
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: border-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+        .btn-customize:hover {
+            border-color: var(--red);
+            color: var(--text);
+            box-shadow: 0 0 16px var(--red-glow-sm);
+        }
+        .btn-customize.active {
+            border-color: var(--red);
+            color: var(--text);
+        }
+
+        /* ─── CUSTOMIZE PANEL ────────────────────────────────── */
+        .customize-panel {
+            display: none;
+            padding: 0 48px;
+            border-bottom: 1px solid var(--border);
+            animation: slideDown 0.3s ease;
+        }
+        .customize-panel.open {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-title {
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            color: var(--red);
+            letter-spacing: 0.1em;
+            padding: 24px 0 18px;
+            border-bottom: 1px solid rgba(200,20,20,0.2);
+            margin-bottom: 0;
+        }
+
+        /* Cookie row */
+        .cookie-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 22px 0;
+            border-bottom: 1px solid rgba(200,20,20,0.12);
+        }
+        .cookie-row:last-child { border-bottom: none; }
+
+        .cookie-info { flex: 1; }
+
+        .cookie-name {
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-required {
+            font-size: 0.62rem;
+            font-family: "Cinzel", serif;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--red);
+            border: 1px solid rgba(221,21,21,0.35);
+            border-radius: 4px;
+            padding: 2px 8px;
+        }
+
+        .cookie-desc {
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        /* Toggle switch */
+        .toggle-wrap {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            padding-top: 4px;
+        }
+
+        .toggle {
+            position: relative;
+            width: 52px;
+            height: 28px;
+        }
+        .toggle input { display: none; }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            background: #1a0808;
+            border: 1px solid rgba(200,20,20,0.3);
+            border-radius: 28px;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .slider::before {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            left: 3px; top: 3px;
+            background: var(--muted);
+            border-radius: 50%;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .toggle input:checked + .slider {
+            background: rgba(139,14,14,0.5);
+            border-color: var(--red);
+        }
+        .toggle input:checked + .slider::before {
+            transform: translateX(24px);
+            background: var(--red);
+            box-shadow: 0 0 8px var(--red-glow);
+        }
+        .toggle input:disabled + .slider {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Save button inside panel */
+        .btn-save {
+            display: block;
+            width: 100%;
+            margin: 20px 0 28px;
+            padding: 13px 24px;
+            background: var(--red-dark);
+            border: 1px solid var(--red);
+            color: var(--text);
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .btn-save:hover {
+            background: var(--red);
+            box-shadow: 0 0 26px var(--red-glow);
+        }
+
+        /* ─── FOOTER ─────────────────────────────────────────── */
+        .card-footer {
+            padding: 20px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-note {
+            font-size: 0.78rem;
+            color: var(--muted);
+            letter-spacing: 0.03em;
+        }
+
+        .privacy-link {
+            font-family: "Pirata One", cursive;
+            font-size: 0.85rem;
+            color: var(--red);
+            text-decoration: none;
+            position: relative;
+            transition: text-shadow 0.2s;
+        }
+        .privacy-link::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -2px;
+            width: 0%; height: 1px;
+            background: var(--red);
+            transition: width 0.3s ease;
+        }
+        .privacy-link:hover {
+            text-shadow: 0 0 10px var(--red-glow);
+        }
+        .privacy-link:hover::after { width: 100%; }
+
+        /* ─── TOAST NOTIFICATION ─────────────────────────────── */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(60px);
+            background: #111;
+            border: 1px solid var(--red);
+            color: var(--text);
+            font-family: "Pirata One", cursive;
+            font-size: 0.95rem;
+            padding: 14px 28px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--red-glow-sm);
+            opacity: 0;
+            transition: transform 0.35s ease, opacity 0.35s ease;
+            z-index: 10000;
+            white-space: nowrap;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────── */
+        @media (max-width: 600px) {
+            .card-header { padding: 30px 24px 22px; flex-direction: column; }
+            .card-actions { padding: 22px 24px; flex-direction: column; }
+            .customize-panel { padding: 0 24px; }
+            .card-footer { padding: 18px 24px; flex-direction: column; align-items: flex-start; }
+            .cookie-row { flex-direction: column; }
+            .btn-accept, .btn-refuse, .btn-customize { min-width: unset; }
+        }

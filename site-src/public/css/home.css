@@ -1,0 +1,696 @@
+
+        /* ─── RESET & VARIABLES ─────────────────────────────── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --red:         #dd1515;
+            --red-mid:     #aa1010;
+            --red-dark:    #6b0a0a;
+            --red-glow:    rgba(221, 21, 21, 0.55);
+            --red-glow-sm: rgba(221, 21, 21, 0.25);
+            --black:       #050505;
+            --surface:     #0e0e0e;
+            --surface2:    #141414;
+            --border:      rgba(221, 21, 21, 0.38);
+            --border-hot:  rgba(221, 21, 21, 0.75);
+            --text:        #f0e8e8;
+            --muted:       #8a7070;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "Pirata One", cursive;
+            background: var(--black);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        a { color: var(--red); text-decoration: none; }
+
+        /* ─── EDGE GLOW (screenshot effect) ─────────────────── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+            box-shadow:
+                inset 0 0 150px rgba(221, 21, 21, 0.15),
+                inset 0 0 50px  rgba(221, 21, 21, 0.07);
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--red-dark); border-radius: 3px; }
+
+        /* ─── NAVBAR ─────────────────────────────────────────── */
+        #nav {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 36px;
+            height: 100px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            background: rgba(5,5,5,0.96);
+            z-index: 100;
+        }
+
+        #nav-video {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 35%;
+            z-index: 0;
+            opacity: 0.09;
+            filter: saturate(0) contrast(1.6);
+        }
+
+        #nav::before, #nav::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 200px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        #nav::before { left: 0;  background: linear-gradient(to right, var(--black), transparent); }
+        #nav::after  { right: 0; background: linear-gradient(to left,  var(--black), transparent); }
+
+        .nav-glow {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            z-index: 3;
+            opacity: 0.6;
+        }
+
+        .nav-img, .nav-details, .account_cookies { position: relative; z-index: 2; }
+
+        .logo-garage {
+            height: 80px; width: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 14px var(--red-glow));
+        }
+
+        .nav-list { display: flex; gap: 38px; list-style: none; }
+        .nav-list li a {
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            position: relative;
+        }
+        .nav-list li a::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -3px;
+            width: 0%; height: 1px;
+            background: var(--red);
+            box-shadow: 0 0 6px var(--red-glow);
+            transition: width 0.35s ease;
+        }
+        .nav-list li a:hover { color: var(--red); text-shadow: 0 0 12px var(--red-glow); }
+        .nav-list li a:hover::after { width: 100%; }
+
+        .account_cookies { display: flex; align-items: center; gap: 26px; }
+        .account_cookies a {
+            display: flex; align-items: center; gap: 8px;
+            font-family: "Pirata One", cursive;
+            font-size: 0.95rem;
+            letter-spacing: 0.06em;
+            color: var(--text);
+        }
+        .account_cookies a span { position: relative; }
+        .account_cookies a span::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -2px;
+            width: 0%; height: 1px;
+            background: currentColor;
+            transition: width 0.3s ease;
+        }
+        .account_cookies a:hover { color: var(--red); text-shadow: 0 0 10px var(--red-glow); }
+        .account_cookies a:hover span::after { width: 100%; }
+
+        .logo-cookies, .connect {
+            height: 26px; width: 26px;
+            border-radius: 50%;
+            filter: invert(15%) sepia(90%) saturate(3000%) hue-rotate(345deg) brightness(90%) contrast(95%);
+        }
+
+        /* ─── HERO ───────────────────────────────────────────── */
+        #hero {
+            position: relative;
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--black);
+        }
+
+        #hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.18;
+            filter: saturate(0.2) contrast(1.5) brightness(0.75);
+            z-index: 0;
+        }
+
+        #hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 55% 55% at 50% 50%, rgba(221,21,21,0.06) 0%, transparent 70%),
+                linear-gradient(to bottom, var(--black) 0%, transparent 15%, transparent 82%, var(--black) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-tag {
+            font-family: "Pirata One", cursive;
+            font-size: 0.95rem;
+            letter-spacing: 0.2em;
+            color: var(--red);
+            margin-bottom: 22px;
+            display: block;
+            text-shadow: 0 0 16px var(--red-glow);
+        }
+
+        .hero-title {
+            font-family: "Pirata One", cursive;
+            font-size: clamp(3.8rem, 9vw, 8rem);
+            line-height: 0.88;
+            color: var(--text);
+            text-shadow:
+                0 0 80px rgba(221,21,21,0.3),
+                0 0 20px rgba(221,21,21,0.15),
+                0 4px 24px rgba(0,0,0,0.9);
+            margin-bottom: 10px;
+        }
+        .hero-title em {
+            font-style: normal;
+            color: var(--red);
+            text-shadow: 0 0 50px rgba(221,21,21,0.7), 0 0 100px rgba(221,21,21,0.25);
+        }
+
+        .hero-subtitle-line {
+            font-family: "Pirata One", cursive;
+            font-size: 1.1rem;
+            letter-spacing: 0.3em;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--muted);
+            letter-spacing: 0.03em;
+            max-width: 500px;
+            margin: 0 auto 44px;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 15px 48px;
+            background: transparent;
+            border: 1px solid var(--red);
+            color: var(--red);
+            font-family: "Pirata One", cursive;
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+        }
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+            z-index: -1;
+        }
+        .hero-cta:hover { color: var(--text); box-shadow: 0 0 40px var(--red-glow); }
+        .hero-cta:hover::before { transform: scaleX(1); }
+
+        /* ─── SECTION COMMONS ────────────────────────────────── */
+        .section-label {
+            font-family: "Pirata One", cursive;
+            font-size: 0.95rem;
+            letter-spacing: 0.22em;
+            color: var(--red);
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 0 12px var(--red-glow-sm);
+        }
+
+        .section-title {
+            font-family: "Pirata One", cursive;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 12px;
+            text-shadow: 0 0 30px rgba(221,21,21,0.25);
+        }
+
+        .section-sub {
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 0.04em;
+        }
+
+        .red-line {
+            width: 50px;
+            height: 1px;
+            background: var(--red);
+            box-shadow: 0 0 12px var(--red-glow);
+            margin: 0 auto 50px;
+        }
+
+        /* ─── BOOKING SECTION ────────────────────────────────── */
+        #order {
+            padding: 90px 40px;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 50%, rgba(100,10,10,0.15) 0%, transparent 70%),
+                var(--black);
+        }
+
+        .booking-card {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 50px 56px;
+            box-shadow:
+                0 0 80px rgba(0,0,0,0.7),
+                0 0 40px rgba(221,21,21,0.06),
+                inset 0 1px 0 rgba(255,255,255,0.025);
+            position: relative;
+        }
+
+        .booking-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 5%, var(--red) 50%, transparent 95%);
+            opacity: 0.55;
+        }
+        .booking-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 10%, var(--red-dark) 50%, transparent 90%);
+            opacity: 0.35;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 26px 36px;
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 9px; }
+        .form-group.full { grid-column: 1 / -1; }
+
+        .form-group label {
+            font-family: "Pirata One", cursive;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+        }
+
+        .form-group input,
+        .form-group select {
+            background: #080808;
+            border: 1px solid rgba(221,21,21,0.28);
+            border-radius: 10px;
+            padding: 13px 16px;
+            color: var(--text);
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 20px rgba(221,21,21,0.2), inset 0 0 8px rgba(221,21,21,0.04);
+        }
+        .form-group select option { background: #0a0000; }
+        .form-group input::placeholder { color: #3a2525; }
+
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator,
+        .form-group input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(20%) sepia(90%) saturate(2000%) hue-rotate(345deg);
+            cursor: pointer;
+        }
+
+        .date-range { display: flex; align-items: center; gap: 12px; }
+        .date-range span { color: var(--red); font-size: 0.9rem; opacity: 0.55; white-space: nowrap; }
+        .date-range input { flex: 1; }
+
+        .btn-primary {
+            grid-column: 1 / -1;
+            margin-top: 10px;
+            padding: 17px 32px;
+            background: var(--red-dark);
+            border: 1px solid var(--red);
+            color: var(--text);
+            font-family: "Pirata One", cursive;
+            font-size: 1.1rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        .btn-primary:hover {
+            background: var(--red);
+            box-shadow: 0 0 36px var(--red-glow), 0 0 10px var(--red-glow);
+        }
+        .btn-primary:hover::before { transform: translateX(100%); }
+
+        /* ─── SPOT CATEGORIES ────────────────────────────────── */
+        #spots {
+            padding: 90px 40px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .spots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .spot-card {
+            background: var(--black);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 40px 26px;
+            text-align: center;
+            position: relative;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .spot-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--red);
+            box-shadow: 0 0 12px var(--red-glow);
+            transform: scaleX(0);
+            transition: transform 0.35s ease;
+        }
+        .spot-card:hover {
+            background: #0c0000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 20px rgba(221,21,21,0.08);
+        }
+        .spot-card:hover::before { transform: scaleX(1); }
+
+        .spot-icon { font-size: 2rem; display: block; margin-bottom: 14px; }
+
+        .spot-card h3 {
+            font-family: "Pirata One", cursive;
+            font-size: 1.15rem;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+        .spot-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+        .spot-price {
+            font-family: "Pirata One", cursive;
+            font-size: 1.45rem;
+            color: var(--red);
+            text-shadow: 0 0 10px var(--red-glow-sm);
+        }
+
+        /* ─── HOW IT WORKS ───────────────────────────────────── */
+        #how {
+            padding: 100px 40px;
+            background: var(--black);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step {
+            padding: 48px 30px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            text-align: center;
+            position: relative;
+            transition: background 0.3s;
+        }
+        .step:hover { background: #0d0000; }
+
+        .step-number {
+            font-family: "Pirata One", cursive;
+            font-size: 3.8rem;
+            color: var(--red);
+            opacity: 0.15;
+            line-height: 1;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .step-icon { font-size: 1.7rem; margin-bottom: 14px; display: block; filter: drop-shadow(0 0 8px var(--red-glow)); }
+
+        .step h3 {
+            font-family: "Pirata One", cursive;
+            font-size: 1.15rem;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        .step p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+
+        /* ─── FOOTER ─────────────────────────────────────────── */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 72px 60px 40px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--red) 50%, transparent 100%);
+            opacity: 0.45;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1100px;
+            margin: 0 auto 60px;
+        }
+
+        .footer-brand .brand-name {
+            font-family: "Pirata One", cursive;
+            font-size: 2.6rem;
+            color: var(--red);
+            display: block;
+            line-height: 1;
+            text-shadow: 0 0 28px var(--red-glow);
+            margin-bottom: 4px;
+        }
+        .footer-brand .brand-sub {
+            font-family: "Pirata One", cursive;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            display: block;
+            margin-bottom: 20px;
+        }
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            max-width: 290px;
+        }
+
+        .btn-connect {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 26px;
+            background: transparent;
+            border: 1px solid var(--red);
+            color: var(--red);
+            font-family: "Pirata One", cursive;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+        .btn-connect:hover {
+            background: var(--red);
+            color: var(--text);
+            box-shadow: 0 0 28px var(--red-glow);
+        }
+
+        .footer-col h4 {
+            font-family: "Pirata One", cursive;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            color: var(--red);
+            margin-bottom: 22px;
+            text-shadow: 0 0 10px var(--red-glow-sm);
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .footer-col ul li:hover { color: var(--text); }
+
+        .payments-label {
+            font-family: "Pirata One", cursive;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            color: var(--red);
+            margin-bottom: 16px;
+            display: block;
+        }
+        .payment-methods { display: flex; flex-wrap: wrap; gap: 10px; }
+        .payment-badge {
+            padding: 7px 13px;
+            background: rgba(221,21,21,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: var(--muted);
+            font-family: "Pirata One", cursive;
+            letter-spacing: 0.05em;
+            display: flex; align-items: center; gap: 6px;
+            transition: border-color 0.25s, color 0.25s, box-shadow 0.25s;
+        }
+        .payment-badge:hover {
+            border-color: var(--red);
+            color: var(--text);
+            box-shadow: 0 0 12px rgba(221,21,21,0.15);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(221,21,21,0.15);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .footer-bottom p { font-family: "Pirata One", cursive; font-size: 0.9rem; color: var(--muted); }
+        .footer-ornament {
+            font-family: "Pirata One", cursive;
+            font-size: 1.2rem;
+            color: var(--red);
+            opacity: 0.32;
+            text-shadow: 0 0 10px var(--red-glow);
+        }
+
+        
+    /* Style for invalid fields */
+.field-invalid {
+    border: 2px solid #ff4d4d !important;
+    box-shadow: 0 0 8px rgba(255, 77, 77, 0.6);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Style for valid fields (optional green glow) */
+.field-valid {
+    border: 2px solid #2ecc71 !important;
+    box-shadow: 0 0 5px rgba(46, 204, 113, 0.4);
+}
+
+/* Style for the disabled button */
+.btn-primary:disabled {
+    background-color: #555 !important;
+    color: #aaa !important;
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none !important; /* No moving up animation */
+}
+
+        
+
+
+        /* ─── RESPONSIVE ─────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .booking-grid { grid-template-columns: 1fr; }
+            .booking-card { padding: 32px 22px; }
+            .footer-grid  { grid-template-columns: 1fr; gap: 40px; }
+            .steps-grid, .spots-grid { grid-template-columns: 1fr; }
+            #nav { padding: 0 16px; height: 85px; }
+            .logo-garage { height: 64px; width: 64px; }
+            .nav-list { gap: 18px; }
+            footer { padding: 50px 24px 32px; }
+        }

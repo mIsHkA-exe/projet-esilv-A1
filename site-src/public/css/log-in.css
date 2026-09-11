@@ -1,0 +1,284 @@
+/* ─── RESET & VARIABLES ─────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --red:         #dd1515;
+    --red-mid:     #aa1010;
+    --red-dark:    #6b0a0a;
+    --red-glow:    rgba(221, 21, 21, 0.55);
+    --red-glow-sm: rgba(221, 21, 21, 0.22);
+    --black:       #050505;
+    --surface:     #0e0e0e;
+    --border:      rgba(221, 21, 21, 0.35);
+    --text:        #f0e8e8;
+    --muted:       #8a7070;
+}
+
+body {
+    font-family: "Pirata One", cursive;
+    background: var(--black);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Edge glow */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow:
+        inset 0 0 160px rgba(221, 21, 21, 0.16),
+        inset 0 0 50px  rgba(221, 21, 21, 0.07);
+}
+
+/* Background radial glow */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(100,8,8,0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ─── BOX ─────────────────────────────────────────── */
+#box {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: stretch;
+    width: min(920px, 95vw);
+    min-height: 560px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow:
+        0 0 100px rgba(0,0,0,0.8),
+        0 0 50px rgba(221,21,21,0.08);
+}
+
+/* top glow line */
+#box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 5%, var(--red) 50%, transparent 95%);
+    opacity: 0.6;
+    z-index: 2;
+}
+
+/* ─── LEFT IMAGE PANEL ────────────────────────────── */
+#box-img {
+    width: 55%;
+    flex-shrink: 0;
+    background: #080808;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#box-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 55%, rgba(100,8,8,0.22) 0%, transparent 70%);
+}
+
+.box-img {
+    width: 92%;
+    max-width: 380px;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 28px var(--red-glow)) drop-shadow(0 0 60px rgba(221,21,21,0.2));
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+.box-img:hover {
+    filter: drop-shadow(0 0 40px var(--red-glow)) drop-shadow(0 0 80px rgba(221,21,21,0.3));
+    transform: scale(1.03);
+}
+
+/* ─── RIGHT CREDENTIALS PANEL ─────────────────────── */
+#box_credentials {
+    flex: 1;
+    padding: 52px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+}
+
+.box-title {
+    font-family: "Pirata One", cursive;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--red);
+    text-shadow: 0 0 20px var(--red-glow-sm);
+    line-height: 1.2;
+    margin-bottom: 36px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ─── FORM GROUPS ──────────────────────────────────── */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    font-family: "Pirata One", cursive;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+}
+
+.form-group input {
+    background: #080808;
+    border: 1px solid rgba(221,21,21,0.28);
+    border-radius: 10px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-family: "Pirata One", cursive;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+.form-group input::placeholder { color: #3a2525; }
+.form-group input:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 20px rgba(221,21,21,0.2), inset 0 0 8px rgba(221,21,21,0.04);
+}
+
+/* ─── SUBMIT BUTTON ────────────────────────────────── */
+.btn-submit {
+    width: 100%;
+    margin-top: 6px;
+    padding: 15px 24px;
+    background: var(--red-dark);
+    border: 1px solid var(--red);
+    color: var(--text);
+    font-family: "Pirata One", cursive;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, box-shadow 0.3s;
+    margin-bottom: 24px;
+}
+.btn-submit::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+.btn-submit:hover {
+    background: var(--red);
+    box-shadow: 0 0 36px var(--red-glow), 0 0 10px var(--red-glow);
+}
+.btn-submit:hover::before { transform: translateX(100%); }
+
+/* ─── SIGN UP LINK ─────────────────────────────────── */
+.box-account {
+    font-size: 1rem;
+    color: var(--muted);
+    font-family: "Pirata One", cursive;
+    margin-bottom: 22px;
+}
+.box-account a {
+    color: var(--red);
+    font-family: "Pirata One", cursive;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    position: relative;
+    transition: text-shadow 0.2s;
+}
+.box-account a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 0%; height: 1px;
+    background: var(--red);
+    transition: width 0.3s ease;
+}
+.box-account a:hover { text-shadow: 0 0 10px var(--red-glow); }
+.box-account a:hover::after { width: 100%; }
+
+/* ─── OR DIVIDER ───────────────────────────────────── */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+.divider span.line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+.divider span.label {
+    font-family: "Pirata One", cursive;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+/* ─── SOCIAL ICONS ─────────────────────────────────── */
+.connect {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.connect a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px; height: 46px;
+    background: #080808;
+    border: 1px solid rgba(221,21,21,0.28);
+    border-radius: 12px;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+.connect a:hover {
+    border-color: var(--red);
+    box-shadow: 0 0 18px rgba(221,21,21,0.25);
+    transform: translateY(-2px);
+}
+
+.connect img {
+    width: 22px; height: 22px;
+    object-fit: contain;
+    filter: grayscale(1) brightness(0.5);
+    transition: filter 0.25s;
+}
+.connect a:hover img {
+    filter: grayscale(0) brightness(0.9) drop-shadow(0 0 6px var(--red-glow-sm));
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 640px) {
+    #box { flex-direction: column; min-height: unset; border-radius: 16px; }
+    #box-img { width: 100%; height: 240px; border-right: none; border-bottom: 1px solid var(--border); }
+    .box-img { width: 160px; }
+    #box_credentials { padding: 36px 28px; }
+    .box-title { font-size: 1.1rem; }
+}
