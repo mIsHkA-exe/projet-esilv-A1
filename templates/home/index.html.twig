@@ -1,0 +1,253 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}home{% endblock %}
+{% block head %}
+        <meta charset="utf-8">
+        <title>Davinci Custom-Garage — Parking</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;600;900&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <body>
+
+        <!-- ══════════════════════════ NAVBAR ══════════ -->
+        <div id="nav">
+            <video autoplay muted loop playsinline id="nav-video">
+                <source src="{{ asset('video/car.mp4') }}" type="video/mp4">
+            </video>
+            <div class="nav-glow"></div>
+
+            <div class="nav-img">
+                <a href="home.html"><img src="{{ asset('images/main-logo.png') }}" alt="Davinci Garage" class="logo-garage"></a>
+            </div>
+
+            <div class="nav-details">
+                <ul class="nav-list">
+                    <li><a href="">Bookings</a></li>
+                    <li><a href="">Customer Services</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                </ul>
+            </div>
+
+            <div class="account_cookies">
+                <a href="cookies.html">
+                    <span class="text-cookies">Cookies</span>
+                    <img src="{{ asset('images/cookies.png') }}" alt="cookies" class="logo-cookies">
+                </a>
+                <a href="Log_In.html">
+                    <span>Connect</span>
+                    <img src="{{ asset('images/logo-login.png') }}" alt="account" class="connect">
+                </a>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════ HERO ════════════ -->
+        <section id="hero">
+            <video autoplay muted loop playsinline id="hero-video">
+                <source src="{{ asset('video/car.mp4') }}" type="video/mp4">
+            </video>
+            <div class="hero-content">
+                <span class="hero-tag">— Premium Parking Experience —</span>
+                <h1 class="hero-title">Davinci<br><em>Custom-Garage</em></h1>
+                <p class="hero-subtitle-line">Parking · Storage · Security</p>
+                <p class="hero-sub">Your vehicle deserves a worthy home. Reserve your spot in our secured, monitored garages across the city.</p>
+                <a href="#order" class="hero-cta">Reserve a Spot</a>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════ BOOKING ═════════ -->
+        <section id="order">
+            <span class="section-label">Reserve your spot</span>
+            <h2 class="section-title">Book a Parking Space</h2>
+            <p class="section-sub">Select your period, location and spot type to secure your place.</p>
+            <div class="red-line"></div>
+
+            <div class="booking-card">
+                <div class="booking-grid">
+
+                    <div class="form-group full">
+                        <label>Rental Period</label>
+                        <div class="date-range">
+                            <input type="date" id="date-start">
+                            <span>⟶</span>
+                            <input type="date" id="date-end">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Arrival Time</label>
+                        <input type="time" value="08:00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Departure Time</label>
+                        <input type="time" value="18:00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location</label>
+                        <select>
+                            <option value="">Select a garage…</option>
+                            <option>Paris — Bastille</option>
+                            <option>Paris — Opéra</option>
+                            <option>Paris — La Défense</option>
+                            <option>Paris — CDG Airport</option>
+                            <option>Lyon — Confluence</option>
+                            <option>Marseille — Vieux Port</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Spot Type</label>
+                        <select>
+                            <option value="">Any type…</option>
+                            <option>Standard</option>
+                            <option>Large / SUV</option>
+                            <option>Motorbike</option>
+                            <option>Electric — with charger</option>
+                            <option>VIP / Covered</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vehicle Plate</label>
+                        <input type="text" placeholder="AA-123-BB">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Promo Code</label>
+                        <input type="text" placeholder="Optional…">
+                    </div>
+
+                    <a href="Select.html"><button class="btn-primary">⬡ &nbsp; Check Availability &nbsp; ⬡</button></a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════ SPOT TYPES ══════ -->
+        <section id="spots">
+            <span class="section-label">Our offer</span>
+            <h2 class="section-title">Spot Categories</h2>
+            <p class="section-sub">Choose the space that fits your vehicle and your budget.</p>
+            <div class="red-line"></div>
+
+            <div class="spots-grid">
+                <div class="spot-card">
+                    <span class="spot-icon">🚗</span>
+                    <h3>Standard</h3>
+                    <p>Classic covered spots for city cars and sedans. Secure 24/7 access.</p>
+                    <span class="spot-price">from 4€/hr</span>
+                </div>
+                <div class="spot-card">
+                    <span class="spot-icon">🚙</span>
+                    <h3>Large / SUV</h3>
+                    <p>Extra-wide bays for SUVs, vans and large vehicles. Reinforced flooring.</p>
+                    <span class="spot-price">from 6€/hr</span>
+                </div>
+                <div class="spot-card">
+                    <span class="spot-icon">⚡</span>
+                    <h3>Electric</h3>
+                    <p>Dedicated bays with Type 2 and CCS chargers. Fast & standard charging.</p>
+                    <span class="spot-price">from 5€/hr</span>
+                </div>
+                <div class="spot-card">
+                    <span class="spot-icon">🏆</span>
+                    <h3>VIP Covered</h3>
+                    <p>Private enclosed garage with CCTV, climate control and valet option.</p>
+                    <span class="spot-price">from 12€/hr</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════ HOW IT WORKS ════ -->
+        <section id="how">
+            <span class="section-label">The Process</span>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-sub">Three steps to your perfect spot.</p>
+            <div class="red-line"></div>
+
+            <div class="steps-grid">
+                <div class="step">
+                    <span class="step-number">01</span>
+                    <span class="step-icon">📅</span>
+                    <h3>Choose Your Dates</h3>
+                    <p>Pick your arrival and departure time. Hourly, daily, or monthly rates available with full flexibility.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">02</span>
+                    <span class="step-icon">📍</span>
+                    <h3>Pick a Location</h3>
+                    <p>Browse our garages across the city. Filter by spot type, EV charger, or covered access.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">03</span>
+                    <span class="step-icon">🔑</span>
+                    <h3>Park & Go</h3>
+                    <p>Confirm and pay online. Access your spot via QR code or licence plate recognition — no ticket needed.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════ FOOTER ══════════ -->
+        <footer>
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <span class="brand-name">Davinci</span>
+                    <span class="brand-sub">Custom-Garage · Parking Network</span>
+                    <p>Premium parking for every vehicle, in every city. Secure, smart, seamless — powered by Davinci.</p>
+                    <button class="btn-connect">
+                        <a href="Log_In.html"><img src="logo-login.png" alt="" style="height:14px;width:14px;filter:invert(15%) sepia(90%) saturate(3000%) hue-rotate(345deg) brightness(90%) contrast(95%);">
+                            Sign in to your account
+                    </button>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li>Book a Spot</li>
+                        <li>Our Garages</li>
+                        <li>Customer Services</li>
+                        <li>About Us</li>
+                        <li>Contact</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul style="margin-bottom:28px">
+                        <li>Privacy Policy</li>
+                        <li>Terms & Conditions</li>
+                        <li>Cookies Manager</li>
+                        <li>Refund Policy</li>
+                    </ul>
+
+                    <span class="payments-label">Accepted Payments</span>
+                    <div class="payment-methods">
+                        <span class="payment-badge"><span>💳</span> Visa</span>
+                        <span class="payment-badge"><span>💳</span> Mastercard</span>
+                        <span class="payment-badge"><span>🅿️</span> PayPal</span>
+                        <span class="payment-badge"><span>◈</span> Crypto</span>
+                        <span class="payment-badge"><span>🏦</span> Virement</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Davinci Custom-Garage — All rights reserved.</p>
+                <span class="footer-ornament">⚙ ✦ ⚙</span>
+                <p>Secured parking, forged in fire.</p>
+            </div>
+        </footer>
+
+    </body>
+
+{% endblock %}
+
